@@ -1,0 +1,7 @@
+.idea/
+.terraform/
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+terraform.tfstate*
+known_hosts
+secrets.auto.tfvars

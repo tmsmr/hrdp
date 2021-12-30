@@ -1,0 +1,40 @@
+#cloud-config
+
+users:
+  - name: hrdp
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ${hrdp_user_authorized_keys}
+
+ssh_keys:
+  ecdsa_private: |
+    ${host_ecdsa_private}
+  ecdsa_public: ${host_ecdsa_public}
+
+packages:
+  - task-xfce-desktop
+  - xrdp
+  - xorgxrdp
+
+write_files:
+  - content: |
+      ${xrdp_key}
+    permissions: '0440'
+    path: /etc/ssl/private/xrdp.key.pem
+  - content: |
+      ${xrdp_cert}
+    permissions: '0444'
+    path: /etc/ssl/certs/xrdp.cert.pem
+
+runcmd:
+  - sed -i 's/^port=3389$/port=tcp:\/\/.:4489/' /etc/xrdp/xrdp.ini
+  - sed -i 's/^security_layer=negotiate$/security_layer=tls/' /etc/xrdp/xrdp.ini
+  - adduser xrdp ssl-cert
+  - rm /etc/xrdp/key.pem && rm /etc/xrdp/cert.pem
+  - chown root:ssl-cert /etc/ssl/private/xrdp.key.pem /etc/ssl/certs/xrdp.cert.pem
+  - ln -s /etc/ssl/private/xrdp.key.pem /etc/xrdp/key.pem && ln -s /etc/ssl/certs/xrdp.cert.pem /etc/xrdp/cert.pem
+  - sed -i 's/^PermitRootLogin prohibit-password$/PermitRootLogin no/' /etc/ssh.sh/sshd_config
+  - echo 'PasswordAuthentication no' >> /etc/ssh.sh/sshd_config
+  - echo 'hrdp:${hrdp_user_pass}' | chpasswd
+  - systemctl reboot
