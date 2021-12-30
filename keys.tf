@@ -45,11 +45,11 @@ resource "local_file" "xrdp_cert" {
   filename = "session/xrdp_cert.pem"
 
   provisioner "local-exec" {
-    command     = "openssl x509 -noout -fingerprint -sha1 -inform pem -in session/xrdp_cert.pem | cut -d '=' -f 2 | tr -d '\n' > session/xrdp_cert.sha1"
+    command     = "openssl x509 -noout -fingerprint -sha1 -inform pem -in session/xrdp_cert.pem | cut -d '=' -f 2 | tr -d '\n' > session/xrdp_cert_fp.txt"
   }
 
   provisioner "local-exec" {
-    command     = "rm session/xrdp_cert.sha1"
+    command     = "rm session/xrdp_cert_fp.txt"
     when        = destroy
   }
 }
