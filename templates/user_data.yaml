@@ -16,6 +16,7 @@ packages:
   - task-xfce-desktop
   - xrdp
   - xorgxrdp
+  - chromium
 
 write_files:
   - content: |
