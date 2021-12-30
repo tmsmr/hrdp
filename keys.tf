@@ -42,10 +42,10 @@ resource "tls_self_signed_cert" "xrdp_cert" {
 
 resource "local_file" "xrdp_cert" {
   content  = tls_self_signed_cert.xrdp_cert.cert_pem
-  filename = "session/xrdp_cert"
+  filename = "session/xrdp_cert.pem"
 
   provisioner "local-exec" {
-    command     = "openssl x509 -noout -fingerprint -sha1 -inform pem -in session/xrdp_cert | cut -d '=' -f 2 | tr -d '\n' > session/xrdp_cert.sha1"
+    command     = "openssl x509 -noout -fingerprint -sha1 -inform pem -in session/xrdp_cert.pem | cut -d '=' -f 2 | tr -d '\n' > session/xrdp_cert.sha1"
   }
 
   provisioner "local-exec" {

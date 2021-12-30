@@ -48,3 +48,10 @@ resource "local_file" "tun_script" {
   filename        = "bin/tun"
   file_permission = "700"
 }
+
+resource "local_file" "rdp_profile" {
+  content         = templatefile("templates/conn.rdp", {
+  })
+  filename        = "session/conn.rdp"
+  file_permission = "600"
+}
