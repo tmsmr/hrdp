@@ -52,6 +52,6 @@ resource "local_file" "tun_script" {
 resource "local_file" "rdp_profile" {
   content         = templatefile("templates/conn.rdp", {
   })
-  filename        = "session/conn.rdp"
+  filename        = "session/hrdp.rdp"
   file_permission = "600"
 }
