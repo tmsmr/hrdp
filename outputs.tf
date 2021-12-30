@@ -12,5 +12,5 @@ output "xrdp_pass" {
 }
 
 output "xrdp_cert_sha1" {
-  value = data.local_file.xrdp_sha1.content
+  value = data.local_file.xrdp_sha1_fp.content
 }

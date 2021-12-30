@@ -54,7 +54,7 @@ resource "local_file" "xrdp_cert" {
   }
 }
 
-data "local_file" "xrdp_sha1" {
-  filename   = "session/xrdp_cert.sha1"
+data "local_file" "xrdp_sha1_fp" {
+  filename   = "session/xrdp_cert_fp.txt"
   depends_on = [local_file.xrdp_cert]
 }
