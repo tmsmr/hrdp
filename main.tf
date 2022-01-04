@@ -10,9 +10,9 @@ resource "random_string" "user_pass" {
 
 resource "hcloud_server" "hrdp_node" {
   name         = "hrdp-${random_string.session_id.result}"
-  image        = var.image
-  server_type  = var.type
-  datacenter   = var.datacenter
+  image        = var.hcloud_node_image
+  server_type  = var.hcloud_node_type
+  datacenter   = var.hcloud_datacenter
   ssh_keys     = [hcloud_ssh_key.client_pub_key.name]
   firewall_ids = [hcloud_firewall.hrdp_fw.id]
 

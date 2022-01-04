@@ -1,3 +1,3 @@
 provider "hcloud" {
-  token = var.apikey
+  token = var.hcloud_apikey
 }

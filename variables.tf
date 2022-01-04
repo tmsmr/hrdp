@@ -1,15 +1,9 @@
-variable "apikey" {
-  sensitive = true
-}
+variable "hcloud_apikey" {}
 
-variable "type" {
-  default = "cx11"
-}
+variable "hcloud_node_type" {}
 
-variable "image" {
+variable "hcloud_datacenter" {}
+
+variable "hcloud_node_image" {
   default = "debian-11"
-}
-
-variable "datacenter" {
-  default = "nbg1-dc3"
 }
